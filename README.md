@@ -1,3 +1,5 @@
+Um Modelo para Predição da Confiabilidade baseado em Métricas de Software
+================
 A qualidade do software, apesar de ser um conceito abstrato, deve ser
 sempre buscada. Com a crescente complexidade dos sistemas fica cada vez
 mais difícil alcançar esta propriedade. Um fator chave para a qualidade
@@ -11,7 +13,7 @@ dos Bug Tracking System de cinco softwares de código aberto escritos em
 Java pretende-se confrontar as taxas de Confiabilidade obtidas com os
 bugs reportados na versão atual do sistema.
 
-Contextualização {#sec:contexto}
+Contextualização 
 ================
 
 A primeira preocupação no processo de desenvolvimento de um software é
@@ -60,7 +62,7 @@ ainda está dando os seus primeiros passos. Veremos na seção
 [sec:problema] um dos problemas a serem resolvidos nesta área de
 pesquisa.
 
-O Problema a ser Resolvido {#sec:problema}
+O Problema a ser Resolvido 
 ==========================
 
 Diferentemente de outras engenharias, o processo de mediação e avaliação
@@ -89,7 +91,7 @@ between Object Classes (CBO), Lack of Cohesion of Methods (LCOM),
 Weighted Methods per Class (WMC), no processo de predição da
 Confiabilidade.
 
-Solução Proposta {#sec:proposta}
+Solução Proposta 
 ================
 
 Este documento propõe um estudo com o objetivo de formular um modelo
@@ -112,7 +114,7 @@ objetivo de definir o melhor modelo estatístico a ser aplicado no
 calculo da Confiabilidade. Um outro ponto em aberto neste trabalho é
 quanto a escolha da ferramente para coleta das métricas de software.
 
-Avaliação da Solução {#sec:avaliacao}
+Avaliação da Solução 
 ====================
 
 A avaliação deste trabalho consistirá basicamente em confrontar as taxas
@@ -130,7 +132,7 @@ figura [fig:avalicao] exibe de forma abstrata o processo de avaliação.
 ![Processo de Avaliação: Visão
 abstrata](./img/projeto_mes_avaliacao.png "fig:") [fig:avalicao]
 
-Limitações e Ameaças a Validade {#sec:limitacoes}
+Limitações e Ameaças a Validade 
 ===============================
 
 Uma primeira limitação deste trabalho está no fato de não ser possível
