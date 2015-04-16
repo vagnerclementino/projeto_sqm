@@ -7,8 +7,11 @@ assignee	  VARCHAR(100),
 status	  VARCHAR(20),
 resolution  VARCHAR(20),
 summary	  VARCHAR(1000),
-last_alter  TIMESTAMP
+last_alter  TIMESTAMP,
+last_update TIMESTAMP NOT NULL
 );
+ 
+
 
 ALTER TABLE sqm.bug_list
 ADD CONSTRAINT PK_BUG_LIST PRIMARY KEY (id_bug_list);
@@ -58,4 +61,7 @@ IS 'Uma breve descrição do bug';
 COMMENT ON COLUMN
 sqm.bug_list.last_alter
 IS 'Data da última alteração ocorrida no bug relatado';
+
+COMMENT ON COLUMN sqm.bug_list.last_update
+IS 'Data de atualização do registro';
 --------------------FIM COMENTAŔIOS-------------------
