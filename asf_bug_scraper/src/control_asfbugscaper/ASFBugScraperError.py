@@ -8,7 +8,7 @@ Created on 26/10/2014
 @version: 0.9
 
 '''
-from control_asfbugscaper.LogManager import *
+from control_asfbugscaper.LogManager import LogManager
 
 
 class ASFBugScraperError(Exception):

@@ -8,8 +8,7 @@ Created on 21/04/2015
 
 
 from datetime import datetime
-
-from control_asfbugscaper.ASFBugScraperError import ASFBugScraperError
+import logging
 from model_asfbugscaper.File import File
 
 
@@ -38,7 +37,7 @@ class LogManager(object):
             log_file_name = self.__LOGFILENAME + ".log"
             return log_file_name
         except Exception as e:
-            raise ASFBugScraperError("Erro ao definir o nome do arquivo de log. Detalhes: {0}".format(e.message))
+            logging.error("Erro ao definir o nome do arquivo de log. Detalhes: {0}".format(e.message))
 
 
     def __init__(self, logFileName=None, logFileLocalization=None):
@@ -53,7 +52,7 @@ class LogManager(object):
             self.__logFile = File(self.__getLogFileName(), ".", 'a')
                 
         except Exception as e:
-            raise ASFBugScraperError("Erro ao criar o singleton. Detalhes: {0}".format(e.message))
+            logging.error("Erro ao criar o singleton. Detalhes: {0}".format(e.message))
         
     def __getFormatedTime(self):
         
@@ -69,9 +68,7 @@ class LogManager(object):
                 
                     self.__logFile.writeToFile("{0} {1}".format(self.__getFormatedTime(),output_message))
                     
-                except ASFBugScraperError as e:
-                    
-                    raise ASFBugScraperError("Erro ao escrever no arquivo de log. Detalhes {0}".format(e.show_error()))
+                except Exception as e:
+                    logging.error("Erro ao escrever no arquivo de log. Detalhes {0}".format(e.message))
             else:
-                
-                raise ASFBugScraperError("O arquivo de log não está definido")               
+                logging.error("O arquivo de log não está definido")               

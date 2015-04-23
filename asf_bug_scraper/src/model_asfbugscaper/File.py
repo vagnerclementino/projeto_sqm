@@ -7,8 +7,6 @@ Created on 21/04/2015
 '''
 import os
 
-from control_asfbugscaper import ASFBugScraperError
-
 
 class File(object):
     '''
@@ -61,13 +59,13 @@ class File(object):
             
             output_message = 'O modo de abertura não foi definido'
             
-            raise ASFBugScraperError(output_message)
+            raise Exception(output_message)
         
         if self.__name == None:
             
             output_message = 'O nome do arquivo não foi definido'
             
-            raise ASFBugScraperError(output_message)
+            raise Exception(output_message)
         
         
         if self.__filePointer == None:
@@ -80,11 +78,11 @@ class File(object):
                 
                 output_message = "Erro em abrir o arquivo {0} localizado em {1}. Detalhes: {2}".format(self.__name, self.__localization, e.strerror)
                 
-                raise ASFBugScraperError(output_message)      
+                raise Exception(output_message)      
             
         else:
             output_message = "O arquivo {0} localizado em {1} já está aberto.".format(self.__name, self.__localization)
-            raise ASFBugScraperError(output_message)
+            raise Exception(output_message)
 
     def closeFile(self):
         
@@ -94,7 +92,7 @@ class File(object):
             
         else:
             
-            raise ASFBugScraperError('Não é possível fechar o arquivo. Ele não está aberto.')
+            raise Exception('Não é possível fechar o arquivo. Ele não está aberto.')
         
     def writeToFile(self, output_message):
         
@@ -105,7 +103,7 @@ class File(object):
         
         else:
             
-            raise ASFBugScraperError('Não foi possível escrever no arquivo {0}'.format(self.__name))
+            raise Exception('Não foi possível escrever no arquivo {0}'.format(self.__name))
                   
      
         
