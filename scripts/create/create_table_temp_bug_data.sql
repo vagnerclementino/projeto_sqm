@@ -16,8 +16,9 @@ CREATE TABLE sqm.temp_bug_data(
 	blocks		  	   	VARCHAR(3000),
 	reported_data	  	   	VARCHAR(3000) NOT NULL,
 	reported_by	  	   	VARCHAR(3000),
-	last_modification_data 	VARCHAR(3000),
-	bug_description		TEXT
+	last_modification_data 		VARCHAR(3000),
+	bug_description			TEXT,
+	update_date 			TIMESTAMP NOT NULL
 
 );
 
