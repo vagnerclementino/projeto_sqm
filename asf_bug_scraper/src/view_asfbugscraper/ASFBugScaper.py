@@ -9,6 +9,7 @@ import sys
 from control_asfbugscaper import ASFBugScraperError
 from control_asfbugscaper.LogManager import LogManager
 from control_asfbugscaper.BugList import BugList
+from control_asfbugscaper.BugScraper import BugScraper
 
 
 
@@ -19,13 +20,16 @@ if __name__ == '__main__':
         log = LogManager()
         bugList = BugList()
         bugList.retrieveAllBugs();
+        scraper = BugScraper()
+        
         
         
         while bugList.hasMore():
             bugID = bugList.getNextBugID()
-            print bugID            
+            print bugID
+            scraper.scraperBug(bugID)  
         #EndWhile
-        print "Total de Registros recuperados: {0}".format(counter)    
+           
     except ASFBugScraperError as e:
         e.show_error()
         sys.exit(1)   

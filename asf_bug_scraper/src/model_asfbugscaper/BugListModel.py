@@ -32,7 +32,8 @@ class BugListModel(object):
             listRetVal = []
         
             SQL_GET_SQ = '''SELECT BL.BUG_ID
-                            FROM SQM.BUG_LIST BL;
+                            FROM SQM.BUG_LIST BL
+                            ORDER BY BL.BUG_ID;
                          '''           
             cur =  self.__connection.get_cursor()
             cur.execute(SQL_GET_SQ)
