@@ -29,3 +29,6 @@ class ASFBugScraperError(Exception):
     def show_error(self):
         print(self.__mensagem)
         
+    #endDef 
+      
+        
