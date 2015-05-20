@@ -9,16 +9,11 @@ CREATE TABLE sqm.temp_bug_data(
 	importance	  		VARCHAR(3000),
 	target_milestone 	 	VARCHAR(3000),
 	assigned_to	  	   	VARCHAR(3000),
-	bug_url		  	   	VARCHAR(3000),
-	bug_keyworks	  	   	VARCHAR(3000),
-	duplicates	  	   	VARCHAR(3000),
-	depends_on	  	   	VARCHAR(3000),
-	blocks		  	   	VARCHAR(3000),
-	reported_data	  	   	VARCHAR(3000) NOT NULL,
+	reported_date	 	   	TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
 	reported_by	  	   	VARCHAR(3000),
-	last_modification_data 		VARCHAR(3000),
-	bug_description			TEXT,
-	update_date 			TIMESTAMP NOT NULL
+	last_modification_date 	TIMESTAMP WITH TIME ZONE,
+	bug_description		TEXT,
+	update_date 			TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 
 );
 

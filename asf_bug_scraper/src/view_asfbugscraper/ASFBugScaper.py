@@ -20,20 +20,21 @@ if __name__ == '__main__':
         log = LogManager()
         bugList = BugList()
         bugList.retrieveAllBugs();
-        scraper = BugScraper()
-        
-        
+        scraper = BugScraper()      
         
         while bugList.hasMore():
             bugID = bugList.getNextBugID()
-            print bugID
+            log.writeToLog("Recuperando informações do BUG {0}".format(bugID))
             scraper.scraperBug(bugID)  
         #EndWhile
-           
+        
+        print('Everythig ins gonna be alright!')
+        log.writeToLog('Everythig ins gonna be alright!')
+        sys.exit(0)    
     except ASFBugScraperError as e:
         e.show_error()
         sys.exit(1)   
         
         
-    print('Everythig ins gonna be alright!')     
+    
             
