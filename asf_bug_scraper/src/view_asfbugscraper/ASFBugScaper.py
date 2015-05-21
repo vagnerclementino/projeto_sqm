@@ -19,13 +19,16 @@ if __name__ == '__main__':
         
         log = LogManager()
         bugList = BugList()
-        bugList.retrieveAllBugs();
-        scraper = BugScraper()      
+        bugList.retrieveAllBugs()
+        scraper = BugScraper()        
         
         while bugList.hasMore():
             bugID = bugList.getNextBugID()
             log.writeToLog("Recuperando informações do BUG {0}".format(bugID))
-            scraper.scraperBug(bugID)  
+            bug = scraper.scraperBug(bugID)
+            print bug.toString().decode('ascii', 'ignore')
+            bug.save()
+            print('#-------------------------------------------------------------------------------------------#')
         #EndWhile
         
         print('Everythig ins gonna be alright!')
@@ -33,8 +36,4 @@ if __name__ == '__main__':
         sys.exit(0)    
     except ASFBugScraperError as e:
         e.show_error()
-        sys.exit(1)   
-        
-        
-    
-            
+        sys.exit(1)

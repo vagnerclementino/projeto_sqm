@@ -9,6 +9,7 @@ from control_asfbugscaper.ASFBugScraperError import ASFBugScraperError
 from control_asfbugscaper.ConnectionManager import ConnetionManager
 
 
+
 class BugListModel(object):
     '''
     classdocs
@@ -40,7 +41,7 @@ class BugListModel(object):
             for record in cur:
                 listRetVal.append(record[0])
             self.__connection.close_cursor(cur)
-            self.__connection.close_connection()
+            #self.__connection.close_connection()
             return listRetVal
         except Exception as e:
             print(e.message)
