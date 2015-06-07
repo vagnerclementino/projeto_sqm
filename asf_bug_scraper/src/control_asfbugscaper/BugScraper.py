@@ -87,7 +87,7 @@ class BugScraper(object):
             retString = retString.replace("\n","")
             #Removendo espaços adicionados
             retString = " ".join(retString.split())
-            return retString
+            return retString.encode('utf-8')
         else:
             ASFBugScraperError("Erro em recuperar o atributo 'bug_status'. Detalhes: numero de argumentos retornados é invalido")
             return None
@@ -98,7 +98,7 @@ class BugScraper(object):
         if len(productList) == 1:
             retString = productList[0]
             retString = retString.strip()
-            return retString
+            return retString.encode('utf-8')
         else:
             ASFBugScraperError("Erro em recuperar o atributo 'product'. Detalhes: numero de argumentos retornados é invalido")
             return None
@@ -109,7 +109,7 @@ class BugScraper(object):
         if len(componentList) == 1:
             componentString = componentList[0]
             componentString = componentString.strip()
-            return componentString
+            return componentString.encode('utf-8')
         else:
             ASFBugScraperError("Erro em recuperar o atributo 'component'. Detalhes: numero de argumentos retornados é invalido")
             return None    
@@ -122,7 +122,7 @@ class BugScraper(object):
             versionString = versionList[0]
             versionString = versionString.replace('\n','')
             versionString = versionString.strip()
-            return versionString
+            return versionString.encode('utf-8')
         except IndexError as ie:
             ASFBugScraperError("Erro em recuperar o atributo 'version'. O número de atributos é invalido. Detalhes: { }".format(ie.message))
             return None  
@@ -134,7 +134,7 @@ class BugScraper(object):
             hardwareString = hardwareList[0]
             hardwareString = hardwareString.replace('\n','')
             hardwareString = " ".join(hardwareString.split())
-            return hardwareString
+            return hardwareString.encode('utf-8')
         except IndexError as ie:
             ASFBugScraperError("Erro em recuperar o atributo 'version'. O número de atributos é invalido. Detalhes: { }".format(ie.message))    
             return None
@@ -147,7 +147,7 @@ class BugScraper(object):
             importanceString = importanceList[0]
             importanceString = importanceString.replace('\n','')
             importanceString = " ".join(importanceString.split())
-            return importanceString
+            return importanceString.encode('utf-8')
         except IndexError as ie:
             ASFBugScraperError("Erro em recuperar o atributo 'version'. O número de atributos é invalido. Detalhes: { }".format(ie.message))
             return None 
@@ -159,7 +159,7 @@ class BugScraper(object):
             targetMilestoneString = targetMilestoneList[0]
             targetMilestoneString = targetMilestoneString.replace('\n','')
             targetMilestoneString = targetMilestoneString.strip()
-            return targetMilestoneString
+            return targetMilestoneString.encode('utf-8')
         except IndexError as ie:
             ASFBugScraperError("Erro em recuperar o atributo 'version'. O número de atributos é invalido. Detalhes: { }".format(ie.message))
             return None 
@@ -173,7 +173,7 @@ class BugScraper(object):
             assignToString = assignToList[0]
             assignToString = assignToString.replace('\n','')
             assignToString = assignToString.strip()
-            return assignToString
+            return assignToString.encode('utf-8')
         except IndexError as ie:
             ASFBugScraperError("Erro em recuperar o atributo 'version'. O número de atributos é invalido. Detalhes: { }".format(ie.message))
             return None  
@@ -225,7 +225,7 @@ class BugScraper(object):
                 reportedByString = reportedByList[0]
                 reportedByString = reportedByString.replace('\n','')
                 reportedByString = reportedByString.strip()
-                return reportedByString
+                return reportedByString.encode('utf-8')
             except IndexError as ie:
                 ASFBugScraperError("Erro em recuperar o atributo 'version'. O número de atributos é invalido. Detalhes: { }".format(ie.message))
                 return None

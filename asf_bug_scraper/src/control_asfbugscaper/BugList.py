@@ -30,13 +30,13 @@ class BugList(object):
         except Exception as e:
             raise ASFBugScraperError("Erro ao criar o objeto BugList. Detalhes: {0}".format(e.message))
         
-    def retrieveAllBugs(self):
+    def retrieveAllBugs(self, startBugID):
         '''
             Retorna a lista completa de bugs
         '''
         try:
             self.__bugListModel = BugListModel()
-            self.__buglist = self.__bugListModel.retrieveAllIDS()
+            self.__buglist = self.__bugListModel.retrieveAllIDS(startBugID)
             self.__numberOfItems = len(self.__buglist)
             if(self.__numberOfItems > 0):
                 self.__isEmpty = False

@@ -1,0 +1,25 @@
+select tbd.bug_id,
+	  tbd.bug_status,
+	  tbd.product,
+	  tbd.component,
+	  tbd.hardware,
+	  tbd.importance,
+	  tbd.target_milestone,
+	  tbd.assigned_to,
+	  tbd.reported_date,
+	  tbd.last_modification_date,
+	  tbd.bug_description,
+	  count(1)
+from sqm.temp_bug_data tbd
+group by tbd.bug_id,
+	  tbd.bug_status,
+	  tbd.product,
+	  tbd.component,
+	  tbd.hardware,
+	  tbd.importance,
+	  tbd.target_milestone,
+	  tbd.assigned_to,
+	  tbd.reported_date,
+	  tbd.last_modification_date,
+	  tbd.bug_description
+having count(1) > 1;

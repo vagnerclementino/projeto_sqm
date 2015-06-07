@@ -25,7 +25,7 @@ class BugListModel(object):
     #endDef
     
     
-    def retrieveAllIDS(self):
+    def retrieveAllIDS(self,startBugID):
         try:
             self.__connection = ConnetionManager()
             self.__connection.connect()
@@ -34,10 +34,11 @@ class BugListModel(object):
         
             SQL_GET_SQ = '''SELECT BL.BUG_ID
                             FROM SQM.BUG_LIST BL
+                            WHERE BL.BUG_ID >= %s
                             ORDER BY BL.BUG_ID;
                          '''           
             cur =  self.__connection.get_cursor()
-            cur.execute(SQL_GET_SQ)
+            cur.execute(SQL_GET_SQ,(startBugID,))
             for record in cur:
                 listRetVal.append(record[0])
             self.__connection.close_cursor(cur)

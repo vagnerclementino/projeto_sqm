@@ -16,10 +16,10 @@ from control_asfbugscaper.BugScraper import BugScraper
 
 if __name__ == '__main__':
     try:
-        
+        startBugID = 13947
         log = LogManager()
         bugList = BugList()
-        bugList.retrieveAllBugs()
+        bugList.retrieveAllBugs(startBugID)
         scraper = BugScraper()        
         
         while bugList.hasMore():
