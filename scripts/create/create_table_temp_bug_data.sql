@@ -4,6 +4,7 @@ CREATE TABLE sqm.temp_bug_data(
 	bug_id		  		INTEGER NOT NULL,
 	bug_status       		VARCHAR(3000),
 	product	 	  		VARCHAR(3000) NOT NULL,
+	product_version 		VARCHAR(3000),
 	component		  		VARCHAR(3000) NOT NULL,
 	hardware		  		VARCHAR(3000),
 	importance	  		VARCHAR(3000),

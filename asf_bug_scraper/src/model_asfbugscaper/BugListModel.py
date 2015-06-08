@@ -35,6 +35,7 @@ class BugListModel(object):
             SQL_GET_SQ = '''SELECT BL.BUG_ID
                             FROM SQM.BUG_LIST BL
                             WHERE BL.BUG_ID >= %s
+                            AND BL.PRODUCT <> 'Apache httpd-2'
                             ORDER BY BL.BUG_ID;
                          '''           
             cur =  self.__connection.get_cursor()

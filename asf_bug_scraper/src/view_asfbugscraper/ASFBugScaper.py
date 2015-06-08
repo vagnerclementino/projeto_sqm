@@ -16,7 +16,7 @@ from control_asfbugscaper.BugScraper import BugScraper
 
 if __name__ == '__main__':
     try:
-        startBugID = 13947
+        startBugID = 12001   
         log = LogManager()
         bugList = BugList()
         bugList.retrieveAllBugs(startBugID)
@@ -27,7 +27,7 @@ if __name__ == '__main__':
             log.writeToLog("Recuperando informações do BUG {0}".format(bugID))
             bug = scraper.scraperBug(bugID)
             print bug.toString().decode('ascii', 'ignore')
-            bug.save()
+            bug.updateVersion()
             print('#-------------------------------------------------------------------------------------------#')
         #EndWhile
         

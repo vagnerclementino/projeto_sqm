@@ -1,0 +1,15 @@
+Campo,Descrição
+id_temp_bug_data,
+ID,Identificador de um bug no ASF Bugzilla
+Situação,Identifica o estado atual de um bug.
+Produto,O sistema no qual o bug ocorreu
+Versão,A versão do sistema em que o bug ocorreu
+Componente,Identifica o módulo do sistema em que o bug ocorreu
+Hardware,A plataforma de hardware no qual o erro foi observado.
+Importância,A importância de um bug é descrita como a combinação de sua prioridade e gravidade.
+Target Milestone,O campo The Target Milestone identifica em qual versão do sistema o bug deverá estar selecionado
+Atribuído Para,Identifica o responsável pela resolução do bug
+Data do Bug,Contêm a data em que o bug foi reportado
+Relatado Por,Identifica o responsável por informar o bug
+Data da Ultima Alteração,Contêm a data da última alteração ocorrida na resolução do bug
+Descrição do Bug,Contêm os detalhes do problema reportado

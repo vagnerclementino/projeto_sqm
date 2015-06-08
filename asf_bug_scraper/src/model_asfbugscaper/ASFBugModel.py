@@ -22,11 +22,7 @@ class ASFBugModel(object):
         self.__connection.connect()
     #endDef     
     def persisteData(self,bug):
-        try:
-            
-            
-        
-            
+        try:            
         
             SQL_INSERT = '''INSERT INTO "sqm"."temp_bug_data" (id_temp_bug_data,
                                                                bug_id,
@@ -79,4 +75,25 @@ class ASFBugModel(object):
             print e.message
             #raise ASFBugScraperError(e.message)
         
-    #endDef     
+    #endDef
+    
+    def updateVersionData(self,bug):
+        try:            
+        
+            SQL_UPDATE = '''UPDATE "sqm"."temp_bug_data" 
+                            SET product_version = %s,
+                            update_date = %s
+                            WHERE bug_id = %s;                          
+                         '''            
+            cur =  self.__connection.get_cursor()
+            cur.execute(SQL_UPDATE, (bug.getVersion(),
+                                     datetime.now(),
+                                     bug.getBugID()
+                                     )
+                        )
+            self.__connection.commit_transation()
+        except Exception as e:
+            print e.message
+            #raise ASFBugScraperError(e.message)
+        
+    #endDef         

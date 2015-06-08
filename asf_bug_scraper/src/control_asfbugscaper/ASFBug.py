@@ -140,18 +140,18 @@ class ASFBug(object):
     def toString(self):
         asfBugStr = "{\n"        
         asfBugStr = asfBugStr + "bugID: {}\n".format(self.getBugID())
-        asfBugStr = asfBugStr + "bugStatus: {}\n".format(self.getBugStatus())                              
-        asfBugStr = asfBugStr + "product : {}\n".format(self.getProduct())                          
-        asfBugStr = asfBugStr + "component : {}\n".format(self.getComponent())                           
+        #asfBugStr = asfBugStr + "bugStatus: {}\n".format(self.getBugStatus())                              
+        #asfBugStr = asfBugStr + "product : {}\n".format(self.getProduct())                          
+        #asfBugStr = asfBugStr + "component : {}\n".format(self.getComponent())                           
         asfBugStr = asfBugStr + "productVersion : {}\n".format(self.getVersion())                          
-        asfBugStr = asfBugStr + "hardware : {}\n".format(self.getHardware())                          
-        asfBugStr = asfBugStr + "importance : {}\n".format(self.getImportance())                       
-        asfBugStr = asfBugStr + "targetMilestone : {}\n".format(self.getTargetMilestone())                           
-        asfBugStr = asfBugStr + "assignedTo : {}\n".format(self.getAssignedTo())                           
-        asfBugStr = asfBugStr + "reportedDate : {}\n".format(self.getReportedDate())                           
-        asfBugStr = asfBugStr + "reportedBy : {}\n".format(self.getReportedBy())
-        asfBugStr = asfBugStr + "lastModificationDate : {}\n".format(self.getLastModificationDate())
-        asfBugStr = asfBugStr + "bugDescription : {}\n".format(self.getBugDescription())
+        #asfBugStr = asfBugStr + "hardware : {}\n".format(self.getHardware())                          
+        #asfBugStr = asfBugStr + "importance : {}\n".format(self.getImportance())                       
+        #asfBugStr = asfBugStr + "targetMilestone : {}\n".format(self.getTargetMilestone())                           
+        #asfBugStr = asfBugStr + "assignedTo : {}\n".format(self.getAssignedTo())                           
+        #asfBugStr = asfBugStr + "reportedDate : {}\n".format(self.getReportedDate())                           
+        #asfBugStr = asfBugStr + "reportedBy : {}\n".format(self.getReportedBy())
+        #asfBugStr = asfBugStr + "lastModificationDate : {}\n".format(self.getLastModificationDate())
+        #asfBugStr = asfBugStr + "bugDescription : {}\n".format(self.getBugDescription())
         asfBugStr = asfBugStr + "}"   
         return asfBugStr
     #endDef
@@ -159,5 +159,9 @@ class ASFBug(object):
     def save(self):
         
         self.__asfBugModel.persisteData(self)
+    #endDef    
+    def updateVersion(self):
+        self.__asfBugModel.updateVersionData(self)
+            
         
             
