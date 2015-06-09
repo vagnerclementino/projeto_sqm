@@ -16,7 +16,7 @@ from control_asfbugscaper.BugScraper import BugScraper
 
 if __name__ == '__main__':
     try:
-        startBugID = 12001   
+        startBugID = 13583   
         log = LogManager()
         bugList = BugList()
         bugList.retrieveAllBugs(startBugID)

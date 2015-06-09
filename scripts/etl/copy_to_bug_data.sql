@@ -9,7 +9,8 @@
 
 INSERT INTO sqm.bug_data(
 SELECT *
-FROM sqm.temp_bug_data
+FROM sqm.temp_bug_data tbd
+WHERE tbd.product_version IS NOT NULL--Removendo os bugs sem a versão do sistema
 
 );
 

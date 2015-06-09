@@ -10,6 +10,7 @@
 \usepackage{enumerate}
 \usepackage{tabularx}
 \usepackage{multirow}
+\usepackage{multirow}
      
 \sloppy
 
@@ -86,10 +87,10 @@ A fim de avaliar o modelo proposto foram coletados os dados de bugs de quatro si
 \begin{tabular}{|l|l|l|c|}
 \hline
 \multicolumn{1}{|c|}{{\bf Produto}} & \multicolumn{1}{c|}{{\bf Descrição}} & \multicolumn{1}{c|}{{\bf Categoria}} & {\bf KLOC} \\ \hline
-\textit{Ant} & Ferramenta utilizada para automação de compilação de software. & Gerenciamento da Compilação & ??? \\ \hline
-\textit{JMeter} & Ferramenta utilizada para testes de carga em um servidores, redes ou objetos Java. & Ferramenta de Testes & ??? \\ \hline
-\textit{Log4j} & API para que o desenvolvedor de software possa fazer log de dados na aplicação. & Biblioteca & ??? \\ \hline
-\textit{Tomcat 7} & Servidor web Java que implementa as tecnologias Java Servlet e JavaServer Pages. & Servidor Web & ??? \\ \hline
+\textit{Ant} & Ferramenta utilizada para automação de compilação de software. & Gerenciamento da Compilação & 133\\ \hline
+\textit{JMeter} & Ferramenta utilizada para testes de carga em um servidores, redes ou objetos Java. & Ferramenta de Testes & 92 \\ \hline
+\textit{Log4j} & API para que o desenvolvedor de software possa fazer log de dados na aplicação. & Biblioteca & 15 \\ \hline
+\textit{Tomcat 7} & Servidor web Java que implementa as tecnologias Java Servlet e JavaServer Pages. & Servidor Web & 196 \\ \hline
 \end{tabular}
 }
 \caption{Sistemas utilizados na avaliação}
@@ -124,9 +125,45 @@ Situação                          		  & Identifica o estado atual de um bug.  
 
 Para fins da validação do modelo proposto foram considerados apenas os bugs cuja situação seja \textit{``CONFIRMED"}, \textit{``RESOLVED-FIXED"}, \textit{``RESOLVED-WONTFIX"}, \textit{``VERIFIED-FIXED"} e \textit{``VERIFIED-WONTFIX"}\footnote{Para maiores detalhes vide \url{https://bz.apache.org/bugzilla/page.cgi?id=fields.html#bug_status}}. Um bug na situação \textit{``CONFIRMED"} foi verificado como válido por alguns dos desenvolvedores a Apache Foundation. As situações \textit{``RESOLVED-FIXED"} e  \textit{``RESOLVED-WONTFIX"} representam bugs  confirmados e resolvidos; sendo que no primeiro caso uma solução foi desenvolvida e testada; o segundo representa bugs que nunca serão resolvidos. Os erros nas situações \textit{``VERIFIED-FIXED"} e \textit{``VERIFIED-WONTFIX"} foram confirmados e verificados pelo setor qualidade (\textit{QA}) da Apache Foundation. A partir deste filtro é possível remover bugs inválidos, duplicados ou cujo erro não pode ser reproduzidos nos teste do desenvolvedor. Em síntese, apenas erros efetivamente confirmados serão analisados.
 
-Os bugs foi divididos em duas categorias \textsc{CAT-HIST} e \textsc{CAT-LAST}. Dado um sistema $S$ composto pelos módulos $M_1, M_2$ e $M_3$, no qual cada um dos módulo está presente nas versões $v_0, v_1 \ldots v_n$ do software.  Seja $B_i$ o conjunto de bugs coletados na versão $v_i$ do sistema, onde $0 \leq i \leq n${}. Para cada módulo de $S$, os bugs pertencentes à $B_0, B_1, \ldots, B_{(n-1)}$  estarão na categoria \textsc{CAT-HIST}. Estes dados serão utilizados para de calcular a taxa de confiabilidade $\omega$ do módulo. Naturalmente os bugs em $B_n$ estão na categoria \textsc{CAT-LAST}. A partir dos valores obtido de $\omega$ foi realizado uma comparação com os bugs em \textsc{CAT-LAST}. A Figura \ref{fig:avalicao} exibe de forma abstrata o processo de avaliação. Na tabela temos as versões e o tamanho de amostra em cada uma das categorias para os sistema utilizado na avaliação. Para alguns bugs a versão do sistema foi informada como \textit{``undefined"}
+Os bugs foi divididos em duas categorias \textsc{CAT-HIST} e \textsc{CAT-LAST}. Dado um sistema $S$ composto pelos módulos $M_1, M_2$ e $M_3$, no qual cada um dos módulo está presente nas versões $v_0, v_1 \ldots v_n$ do software.  Seja $B_i$ o conjunto de bugs coletados na versão $v_i$ do sistema, onde $0 \leq i \leq n${}. Para cada módulo de $S$, os bugs pertencentes à $B_0, B_1, \ldots, B_{(n-1)}$  estarão na categoria \textsc{CAT-HIST}. Estes dados serão utilizados para de calcular a taxa de confiabilidade $\omega$ do módulo. Naturalmente os bugs em $B_n$ estão na categoria \textsc{CAT-LAST}. A partir dos valores obtido de $\omega$ foi realizado uma comparação com os bugs em \textsc{CAT-LAST}. A Figura \ref{fig:avalicao} exibe de forma abstrata o processo de avaliação. Na tabela \ref{tab:categorias}{} temos as versões e o tamanho de amostra em cada uma das categorias para os sistema utilizado na avaliação. Para alguns bugs a versão do sistema foi informada como \textit{``undefined"}
 
-\begin{figure}[ht]
+\begin{table}[htbp]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Sistema} & \textbf{Versões em CAT-HIST} & \textbf{Tamanho da Amostra} & \textbf{Versão em CAT-LAST} & \textbf{Tamanho da Amostra} & \textbf{Total Bugs}\\
+\hline
+
+\multirow{2}{*}{\textit{Ant}} 	 & 1.0; 1.1; 1.2; 1.3; 1.4.x & & & &\\
+							 	 & 1.5.x; 1.6.x; 1.7.x; 1.8.x & 3097 & 1.9.5 & 98 & \textbf{3195}\\
+\hline
+
+\multirow{2}{*}{\textit{JMeter}}  & 1.5; 1.7.x; 1.8.x; 1.9.x; 2.0.x & & & &\\
+								 & 2.1.x; 2.2.x; 2.3.x; 2.4.x; 2.5.x; 2.6; 2.7; 2.8 & 1415 & 2.9 & 140 & 												\textbf{1555}\\
+\hline
+								 
+\textit{Log4j} & 1.0; 1.1 & 224 & 1.2.9 & 539 & \textbf{763}\\
+\hline
+\multirow{10}{*}{\textit{Tomcat 7}} & 7.0.0; 7.0.1; 7.0.2; 7.0.3; 7.0.4; 7.0.5; & & & & \\
+								 & 7.0.6; 7.0.7; 7.0.8; 7.0.9; 7.0.10; 7.0.11; & & & & \\
+								 & 7.0.12; 7.0.13; 7.0.14; 7.0.15; 7.0.16; 7.0.17; & & & & \\
+								 & 7.0.18; 7.0.19; 7.0.20; 7.0.21; 7.0.22; 7.0.23; & & & &  \\
+								 & 7.0.24; 7.0.25; 7.0.26; 7.0.27; 7.0.28; 7.0.29; & & & & \\
+								 & 7.0.30; 7.0.31; 7.0.32; 7.0.33; 7.0.34; 7.0.35; & & & & \\
+								 & 7.0.36; 7.0.37; 7.0.38; 7.0.39; 7.0.40; 7.0.41; & & & & \\
+								 & 7.0.42; 7.0.43; 7.0.44; 7.0.45; 7.0.46; 7.0.47; & & & & \\
+								 & 7.0.48; 7.0.49; 7.0.50; 7.0.51; 7.0.52; 7.0.53; & & & & \\
+								 & 7.0.54; 7.0.55; 7.0.56; 7.0.57 & 475 & 7.0.59 & 11 & \textbf{486}\\
+\hline
+\end{tabular}
+}
+\caption{Categorização das versões dos sistemas}
+\label{tab:categorias}
+\end{table}
+
+
+
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=.80\textwidth]{./img/projeto_mes_avaliacao.png}
 \caption{Processo de Avaliação: Visão abstrata}

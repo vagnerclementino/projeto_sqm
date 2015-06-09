@@ -1,0 +1,1 @@
+GRANT SELECT ON sqm.vw_bugs_selecionados TO proj_sqm_select_all;

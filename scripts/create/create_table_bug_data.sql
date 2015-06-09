@@ -2,18 +2,19 @@ CREATE TABLE sqm.bug_data(
 
 	id_bug_data 			SERIAL NOT NULL,
 	bug_id		  		INTEGER NOT NULL,
-	bug_status       		VARCHAR(3000),
-	product	 	  		VARCHAR(3000) NOT NULL,
-	component		  		VARCHAR(3000) NOT NULL,
-	hardware		  		VARCHAR(3000),
-	importance	  		VARCHAR(3000),
-	target_milestone 	 	VARCHAR(3000),
-	assigned_to	  	   	VARCHAR(3000),
+	bug_status       		VARCHAR(100),
+	product	 	  		VARCHAR(100) NOT NULL,
+	component		  		VARCHAR(100) NOT NULL,
+	hardware		  		VARCHAR(100),
+	importance	  		VARCHAR(100),
+	target_milestone 	 	VARCHAR(100),
+	assigned_to	  	   	VARCHAR(100),
 	reported_date	 	   	TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-	reported_by	  	   	VARCHAR(3000),
+	reported_by	  	   	VARCHAR(100),
 	last_modification_date 	TIMESTAMP WITH TIME ZONE,
 	bug_description		TEXT,
-	update_date 			TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+	update_date 			TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+	product_version	     VARCHAR(100)
 
 );
 
@@ -33,6 +34,9 @@ ON sqm.bug_data (product);
 
 CREATE INDEX idx_bd_component
 ON sqm.bug_data (component);
+
+CREATE INDEX idx_bd_pversion
+ON sqm.bug_data (product_version);
 
 CREATE INDEX idx_bd_repdate
 ON sqm.bug_data (reported_date);

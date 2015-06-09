@@ -41,6 +41,7 @@ class BugScraper(object):
     __REPORTED_BY_XPATH = '//*[@id="bz_show_bug_column_2"]/table/tr[1]/td/span/span/text()'
     __LAST_MODIFICATION_XPATH = '//*[@id="bz_show_bug_column_2"]/table/tr[2]/td/text()'
     __BUG_DESCRIPTION_XPATH = '//*[@id="c0"]/pre/text()'
+    __MAX_TENTIVAS = 5
     
     def __init__(self):
         '''
@@ -55,19 +56,31 @@ class BugScraper(object):
     
     def __connect(self, url):
         
-        try:
-            asfResponse = requests.get(url)            
-        except RequestException as e:
-            raise ASFBugScraperError('There was an ambiguous exception that occurred while handling your request.Vide erro: {0}'.format(e))
-        except ConnectionError as e:
-            raise ASFBugScraperError('Ocorreu um erro de conexão. Detalhes: {0}'.format(e))
-        except HTTPError as e:
-            raise ASFBugScraperError('Ocorreu um erro de HTTP. Detalhes: {0}'.format(e))
-        except URLRequired as e:
-            raise ASFBugScraperError('A URL informada {0} não é válida. Detalhes: {1}'.format(url,e))
-        except Timeout as e:
-            raise ASFBugScraperError('Timeout da conexão. Detalhes: {0}'.format(e))
-            
+        tentativas = 0
+        
+        while tentativas < self.__MAX_TENTIVAS:
+            try:
+                asfResponse = requests.get(url) 
+                break       
+            except ConnectionError as e:
+                print ('Ocorreu um erro de conexão. Detalhes: {0}'.format(e))
+                tentativas = tentativas + 1 
+            except HTTPError as e:
+                print('Ocorreu um erro de HTTP. Detalhes: {0}'.format(e))
+                tentativas = tentativas + 1 
+            except URLRequired as e:
+                print('A URL informada {0} não é válida. Detalhes: {1}'.format(url,e))
+                tentativas = tentativas + 1 
+            except Timeout as e:
+                print('Timeout da conexão. Detalhes: {0}'.format(e))
+                tentativas = tentativas + 1 
+            except RequestException as e:
+                print('There was an ambiguous exception that occurred while handling your request.Vide erro: {0}'.format(e))
+                tentativas = tentativas + 1  
+                
+        if tentativas == self.__MAX_TENTIVAS:
+            raise ASFBugScraperError("Erro ao conectar com a url {0}. Status Code: {1}".format(url))
+        
         '''----------------------------------------
                     Verificando se a conexao ocorreu
                     corretamente.
