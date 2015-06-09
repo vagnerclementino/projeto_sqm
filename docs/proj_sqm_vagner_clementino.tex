@@ -125,7 +125,20 @@ Situação                          		  & Identifica o estado atual de um bug.  
 
 Para fins da validação do modelo proposto foram considerados apenas os bugs cuja situação seja \textit{``CONFIRMED"}, \textit{``RESOLVED-FIXED"}, \textit{``RESOLVED-WONTFIX"}, \textit{``VERIFIED-FIXED"} e \textit{``VERIFIED-WONTFIX"}\footnote{Para maiores detalhes vide \url{https://bz.apache.org/bugzilla/page.cgi?id=fields.html#bug_status}}. Um bug na situação \textit{``CONFIRMED"} foi verificado como válido por alguns dos desenvolvedores a Apache Foundation. As situações \textit{``RESOLVED-FIXED"} e  \textit{``RESOLVED-WONTFIX"} representam bugs  confirmados e resolvidos; sendo que no primeiro caso uma solução foi desenvolvida e testada; o segundo representa bugs que nunca serão resolvidos. Os erros nas situações \textit{``VERIFIED-FIXED"} e \textit{``VERIFIED-WONTFIX"} foram confirmados e verificados pelo setor qualidade (\textit{QA}) da Apache Foundation. A partir deste filtro é possível remover bugs inválidos, duplicados ou cujo erro não pode ser reproduzidos nos teste do desenvolvedor. Em síntese, apenas erros efetivamente confirmados serão analisados.
 
-Os bugs foi divididos em duas categorias \textsc{CAT-HIST} e \textsc{CAT-LAST}. Dado um sistema $S$ composto pelos módulos $M_1, M_2$ e $M_3$, no qual cada um dos módulo está presente nas versões $v_0, v_1 \ldots v_n$ do software.  Seja $B_i$ o conjunto de bugs coletados na versão $v_i$ do sistema, onde $0 \leq i \leq n${}. Para cada módulo de $S$, os bugs pertencentes à $B_0, B_1, \ldots, B_{(n-1)}$  estarão na categoria \textsc{CAT-HIST}. Estes dados serão utilizados para de calcular a taxa de confiabilidade $\omega$ do módulo. Naturalmente os bugs em $B_n$ estão na categoria \textsc{CAT-LAST}. A partir dos valores obtido de $\omega$ foi realizado uma comparação com os bugs em \textsc{CAT-LAST}. A Figura \ref{fig:avalicao} exibe de forma abstrata o processo de avaliação. Na tabela \ref{tab:categorias}{} temos as versões e o tamanho de amostra em cada uma das categorias para os sistema utilizado na avaliação. Para alguns bugs a versão do sistema foi informada como \textit{``undefined"}
+Os bugs foi divididos em duas categorias \textsc{CAT-HIST} e \textsc{CAT-LAST}.
+Dado um sistema $S$ composto pelos módulos $M_1, M_2$ e $M_3$, no qual cada um
+dos módulo está presente nas versões $v_0, v_1 \ldots v_n$ do software.  Seja
+$B_i$ o conjunto de bugs coletados na versão $v_i$ do sistema, onde $0 \leq i
+\leq n${}. Para cada módulo de $S$, os bugs pertencentes à $B_0, B_1, \ldots,
+B_{(n-1)}$  estarão na categoria \textsc{CAT-HIST}. Estes dados serão utilizados
+para de calcular a taxa de confiabilidade $\omega$ do módulo. Naturalmente os
+bugs em $B_n$ estão na categoria \textsc{CAT-LAST}. A partir dos valores obtido
+de $\omega$ foi realizado uma comparação com os bugs em \textsc{CAT-LAST}. A
+Figura \ref{fig:avalicao} exibe de forma abstrata o processo de avaliação. Na
+tabela \ref{tab:categorias}{} temos as versões e o tamanho de amostra em cada
+uma das categorias para os sistema utilizado na avaliação. Para alguns bugs a
+versão do sistema foi informada como \textit{``undefined"}, estes erros foram
+desconsiderados tendo em vista que não se fazia possivel sua categorização.
 
 \begin{table}[htbp]
 \resizebox{\textwidth}{!}{%
@@ -148,12 +161,12 @@ Os bugs foi divididos em duas categorias \textsc{CAT-HIST} e \textsc{CAT-LAST}. 
 								 & 7.0.6; 7.0.7; 7.0.8; 7.0.9; 7.0.10; 7.0.11; & & & & \\
 								 & 7.0.12; 7.0.13; 7.0.14; 7.0.15; 7.0.16; 7.0.17; & & & & \\
 								 & 7.0.18; 7.0.19; 7.0.20; 7.0.21; 7.0.22; 7.0.23; & & & &  \\
-								 & 7.0.24; 7.0.25; 7.0.26; 7.0.27; 7.0.28; 7.0.29; & & & & \\
+								 & 7.0.24; 7.0.25; 7.0.26; 7.0.27;7.0.28;7.0.29;& 475 & 7.0.59 & 11 & \textbf{486}\\
 								 & 7.0.30; 7.0.31; 7.0.32; 7.0.33; 7.0.34; 7.0.35; & & & & \\
 								 & 7.0.36; 7.0.37; 7.0.38; 7.0.39; 7.0.40; 7.0.41; & & & & \\
 								 & 7.0.42; 7.0.43; 7.0.44; 7.0.45; 7.0.46; 7.0.47; & & & & \\
 								 & 7.0.48; 7.0.49; 7.0.50; 7.0.51; 7.0.52; 7.0.53; & & & & \\
-								 & 7.0.54; 7.0.55; 7.0.56; 7.0.57 & 475 & 7.0.59 & 11 & \textbf{486}\\
+								 & 7.0.54; 7.0.55; 7.0.56; 7.0.57 & & & & \\
 \hline
 \end{tabular}
 }
@@ -178,7 +191,15 @@ Os bugs foi divididos em duas categorias \textsc{CAT-HIST} e \textsc{CAT-LAST}. 
 \section{Limitações e Ameaças a Validade}
 \label{sec:limitacoes}
 
-Uma primeira limitação deste trabalho está no fato de não ser possível de medir a taxa de Confiabilidade em uma granularidade menor do que um módulo. Conforme exposto, é difícil encontrar informações sobre bugs ao nível de classe ou package. Um outro fator limitador está relacionado ao número de sistemas avaliados bem como a linguagem utilizado. O fato de usar um número reduzido de sistemas desenvolvidos em uma mesma linguagem dificulta a generalização dos resultados obtidos. Por se tratar de um modelo estatística para o cálculo da Confiabilidade, simplificações e outras suposições são necessárias. Todavia, está é uma ameaça comum a validade de qualquer trabalho nesta área.
+Uma primeira limitação deste trabalho está no fato de não ser possível de medir
+a taxa de Confiabilidade em uma granularidade menor do que um módulo. Conforme
+exposto, é difícil encontrar informações sobre bugs ao nível de classe ou
+package. Um outro fator limitador está relacionado ao número de sistemas
+avaliados bem como a linguagem utilizado. O fato de usar um número reduzido de
+sistemas desenvolvidos em uma mesma linguagem dificulta a generalização dos
+resultados obtidos. Por se tratar de um modelo estatística para o cálculo da
+Confiabilidade, simplificações e outras suposições são necessárias. Todavia,
+está é uma ameaça comum a validade de qualquer trabalho nesta área.
 
 \section{Conclusão}
 \label{sec:conclusao}
