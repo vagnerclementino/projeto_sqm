@@ -10,7 +10,7 @@
 \usepackage{enumerate}
 \usepackage{tabularx}
 \usepackage{multirow}
-     
+\usepackage{amsmath}
 \sloppy
 
 \title{Um Modelo para Predição da Confiabilidade\\
@@ -66,12 +66,70 @@ Este documento propõe um estudo com o objetivo de formular um modelo estatísti
 
 A fim de calcular a taxa de Confiabilidade dos sistemas, pretende-se coletar dados de falhas de cinco programas de código aberto escritos em Java. Os dados serão coletados diretamente do \textit{Bug Tracking System - BST}{} da aplicação. De posse dos dados de falhas, será coletados as métricas dos softwares. Posteriormente será calculado a taxa de confiabilidade de cada um dos módulos que compõem o sistema. O cálculo ao nível de um módulo, se deve essencialmente pelo dificuldade em conseguir dados de bugs em uma menor granularidade, como por exemplo ao nível de classes ou \textit{packages}{}. Estudos estão sendo realizados com o objetivo de definir o melhor modelo estatístico a ser aplicado no calculo da Confiabilidade. Um outro ponto em aberto neste trabalho é quanto a escolha da ferramente para coleta das métricas de software.
 
-\section{Trabalhos Relacionados}
-\label{sec:trab_relacionados}
+\section{O Modelo de Predição da Confiabilidade}
+\label{sec:modelo}
 
+O modelo proposto neste trabalho é baseado em dois pilares fundamentais: dados
+históricos sobre bugs e métricas de software de um determinado módulo (package
+ou classe) do sistema. A primeira parte tem sua fundamentação na
+tradicional \textit{Engenharia da Confiabilidade}, tanto para hardware quanto
+para software, que tenta prever os erros em determinado sistema por meio de
+técnicas estatísticas realizadas sobre dados históricos. O segundo pilar tem sua
+origem na Engenharia de Software que busca mensurar a qualidade interna do produto de
+software por meio de um conjunto de métricas e seus respectivos limiares
+(thresholds)
+\cite{oliveira2014extracting,ferreira2012identifying,alves2010deriving,abreu1994object}{}.
 
-\section{Solução Proposta}
-\label{sec:proposta}
+\subsection{A Predição da Confiabilidade com Dados Históricos}
+\label{subsec:model_dados_historicos}
+
+Os modelos de predição da Confiabilidade baseados em dados históricos geralmente
+utilizados de um arcabouço estatístico com o objetivo de prever \textit{quando}
+um determinado sistema irá apresentar uma falha. A teoria se baseia na
+determinação de uma variável aleatória de interesse $T$ que determina o tempo em
+que uma falha irá ocorrer. Uma variável aleatória $X $é função definida sobre um espaço
+amostral $S$ que associa um número real $x$ para cada evento $e$ em $S$, ou
+seja, $X(e) = x$ onde $e \in S${}.
+
+Dado um ponto $t$ qualquer no tempo estamos interessados em calcular a
+probabilidade que um falha ocorra em algum tempo $T$ no intervalo
+$(t,t_+\Delta{}t)${}, definida como $P(t \le T \leq t + \Delta{}t)${}. Esta
+probabilidade pode ser relacionada com a Função Densidade de
+Probabilidade(\textit{Probability density function})$ f(t)$ e a Função
+Distribuição Acumulada (\textit{cumulative distribution function}) $F(t)$,
+conforme Equação \ref{eq:fdp_fdc} \cite{lyu1996handbook}{}.
+
+\begin{equation} \label{eq:fdp_fdc}
+    P(t \le T \leq t + \Delta{}t) = f(t)\Delta{}t = F(t + \Delta{}t) - F(t)
+\end{equation}
+
+Desde de que a variável aleatória $T$ é definida apenas no intervalo
+$[0,+\infty)$, é possível derivar que $ F(t) = P(0 \le T \le t) =
+    \int_0^{t}f(x)dx$, sendo possível determinar a probabilidade de sucesso no
+    tempo $t$, $R(t)$, como a probabilidade de uma falha ocorrer depois de $t$,
+    ou seja, $T > t$. A probabilidade $R(t)$ é conhecida como \textit{Função de
+    Confiabilidade{}} e é definida pela Equação \ref{eq:fun_confiabilidade}.
+
+\begin{equation} \label{eq:fun_confiabilidade}
+    R(t) = P(T > t) = 1- F(t) = \int_t^{}\infty f(x)dx
+\end{equation}
+
+Não obstante, quando do estudo dos dado de falha de um sistema, a função de
+densidade $f(t)$ não se mostra muito útil. Ao invés dela, é utilizado uma
+\textit (taxa de risco) (hazard function) para o cálculo da Confiabilidade. Uma
+função de risco $z(t)$ é definida como o limite da taxa de falhas quando a
+variação de tempo tende a zero ($\Delta{}t \to 0).$ Desta forma $z(t)$ é
+definido como $ z(t) = \frac{f(t)}{R(t)}$ \cite{lyu1996handbook}.
+
+É possível verificar uma relação direita entre $f(t)$, $F(t)$ e $R(t)${}. Por
+exemplo, considerando uma taxa de risco contante $z(t) = \lambda$ , resultara em
+$z(t) = \lambda$; $f(t) = \lambda{}e^{-\lambda{}t}$; $R(t) = e^{-\lambda{}t}${}.
+Neste trabalho será considerado uma taxa de risco linear com relação à versão do
+sistema analisado.
+
+\subsection{Métricas de Software}
+\label{subsec:metricas}
+
 
 \section{Avaliação do Modelo}
 \label{sec:avaliacao}
@@ -185,14 +243,23 @@ desconsiderados tendo em vista que não se fazia possivel sua categorização.
 \subsection{Coletando as métricas}
 \label{subsec:analise_coleta_metricas}
 Conforme exposto na Tabela \label{tab:campos} os dados sobre um determinado bug
-foi coletado ao nível de \texit{componente}{}. A definição exata do que é um
+foi coletado ao nível de \textit{componente}{}. A definição exata do que é um
 componente na arquitetura de determinado sistema é subjetiva. Em um alguns casos
 não existe uma clara separação se determinado package ou classe pertence a um
 componente A ou B. Visando ultrapassar esta dificuldade foi definido que o nome
 do componente determinará quais classes irão fazer parte do mesmo. Por exemplo,
+o sistema \textit{JMeter} possui um componente denominado \textit{}```"HTTP"```,
+portanto, as classes que tiverem a mesma string no nome serão aquelas que farão
+parte do respectivo componente. A Tabela exibe os valores das métricas avaliadas
+ para cada componente considerado neste estudo.
 
 \section{Resultados}
 \label{sec:resultados}
+
+\section{Trabalhos Relacionados}
+\label{sec:trab_relacionados}
+
+
 \section{Limitações e Ameaças a Validade}
 \label{sec:limitacoes}
 
