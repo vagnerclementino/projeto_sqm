@@ -111,7 +111,7 @@ $[0,+\infty)$, é possível derivar que $ F(t) = P(0 \le T \le t) =
     Confiabilidade{}} e é definida pela Equação \ref{eq:fun_confiabilidade}.
 
 \begin{equation} \label{eq:fun_confiabilidade}
-    R(t) = P(T > t) = 1- F(t) = \int_t^{}\infty f(x)dx
+    R(t) = P(T > t) = 1- F(t) = \int_t^{\infty} f(x)dx
 \end{equation}
 
 Não obstante, quando do estudo dos dado de falha de um sistema, a função de
@@ -129,6 +129,20 @@ sistema analisado.
 
 \subsection{Métricas de Software}
 \label{subsec:metricas}
+
+Métricas de software vêm sendo utilizas com o objetivo de mensurar a qualidade interna do software. Na literatura diversas métricas vêm sendo propostas, contudo, não se têm um consenso qual seria o melhor conjunto de métricas a ser utilizado. Este trabalho utiliza as métricas proposta em \cite{chidamber1994metrics}{}, conhecidas como \textit{CK-Metrics}. Tais métricas $(i)$ foram definidas para softwares Orientado a Objeto; $(ii)$ são amplamente utilizadas na literatura \cite{radjenovic2013software}; $(ii)$ foi demostrado algumas são capazes de predizer módulos com erros \cite{basili1996validation}. O conjunto \textit{CK-Metrics} é composto:
+
+\begin{itemize}
+	\item \textit{Weighted Methods per Class (WMC)}:  WMC mede a complexidade de uma classe atribuindo pesos para seus métodos. Neste trabalho foi considerado que todos os métodos de uma classe possuem a mesma complexidade, desta forma o WMC representa o número de métodos em determinada classe. A suposição por trás dessa métrica é que uma classe com um número maior de funções de membro do que seus pares é mais complexa, e por consequência tende a ser mais propensa a falhas.
+	\item \textit{Depth of Inheritance Tree of a class (DIT)}:  DIT é definida como a profundidade máxima no grafo de herança de determinada classe. A suposição por trás dessa métrica é uma classe mais profunda localizada numa rede herança classe é suposto ser mais propenso a falhas porque a classe herda um grande número de definições de seus antepassados.
+	\item \textit{Number Of Children of a Class (NOC)}: Representa o número de descendentes diretos de uma classe. É possível verificar que classe com grande número de herdeiros são difíceis de modificar e normalmente requerem mais testes tendo em vista que modificações poderão afetar todo os filhos. Desta forma, quanto maior for o número de filhos de uma classe mais flexível e complexa ela será.
+	\item \textit{Coupling Between Object classes (CBO)}: Uma determinada classe $C$ está acoplado a uma outra classe $D$ caso a classe $C$ utilize funções ou membro de $D$. A suposição por trás dessa métrica é que as classes fortemente acopladas são mais propensas a falhas do que as classes fracamente acoplados.
+	
+	\item \textit{Response For a Class (RFC)} :  Este é o número de métodos que podem potencialmente ser executadas no caso de uma resposta a determinada mensagem recebida por um objeto dessa classe. Neste trabalho foi considerado como RFC o número de funções diretamente invocados por funções ou operadores de uma classe. A ideia para esta métrica é que quanto maior for a resposta de uma classe, maior a complexidade da classe, e mais difícil e propenso a falhas ela estará.
+	
+	\item \textit{Lack of Cohesion on Methods (LCOM)} : Representa o número de pares de funções sem variáveis compartilhadas menos o número de pares de funções que possuemm variáveis compartilhadas. No entanto, a métrica é definida como 0 caso a diferença seja negativa. Uma classe com baixa coesão entre os seus métodos sugere um projeto inadequado, o que é susceptível a falhas.
+	
+\end{itemize}
 
 
 \section{Avaliação do Modelo}
@@ -232,14 +246,6 @@ desconsiderados tendo em vista que não se fazia possivel sua categorização.
 \end{table}
 
 
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=.80\textwidth]{./img/projeto_mes_avaliacao.png}
-\caption{Processo de Avaliação: Visão abstrata}
-\label{fig:avalicao}
-\end{figure}
-
 \subsection{Coletando as métricas}
 \label{subsec:analise_coleta_metricas}
 Conforme exposto na Tabela \label{tab:campos} os dados sobre um determinado bug
@@ -255,6 +261,85 @@ parte do respectivo componente. A Tabela exibe os valores das métricas avaliada
 
 \section{Resultados}
 \label{sec:resultados}
+
+
+
+
+\begin{table}[h]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|c|l|l|l|l|l|l|l|l|c|c|}
+\hline
+\multicolumn{1}{|c|}{{\bf Sistema}}        & \multicolumn{1}{c|}{{\bf Componente}} & {\bf Taxa Média de Falhas} & \multicolumn{1}{c|}{{\bf Versão}} & \multicolumn{1}{c|}{{\bf WMC}} & \multicolumn{1}{c|}{{\bf DIT}} & \multicolumn{1}{c|}{{\bf NOC}} & \multicolumn{1}{c|}{{\bf CBO}} & \multicolumn{1}{c|}{{\bf RFC}} & \multicolumn{1}{c|}{{\bf LCOM}} & \multicolumn{1}{c|}{{\bf X\_v}} & {\bf X\_v / X\_v-1}    & {\bf w}                 \\ \hline
+\multicolumn{1}{|c|}{\multirow{6}{*}{Ant}} & \multirow{2}{*}{Core}                 & \multirow{2}{*}{16,96}     & 1.9.4                             & 8,705                          & 0,521                          & 0,421                          & 7,687                          & 26,515                         & 63,983                          & 107,831                         & \multirow{2}{*}{1,027} & \multirow{2}{*}{17,420} \\ \cline{4-11}
+\multicolumn{1}{|c|}{}                     &                                       &                            & 1.9.3                             & 8,695                          & 0,503                          & 0,435                          & 7,691                          & 26,423                         & 61,240                          & 104,985                         &                        &                         \\ \cline{2-13} 
+\multicolumn{1}{|c|}{}                     & \multirow{2}{*}{Core tasks}           & \multirow{2}{*}{42,87}     & 1.9.4                             & 9,710                          & 0,914                          & 0,247                          & 6,720                          & 27,043                         & 166,968                         & 211,602                         & \multirow{2}{*}{1,007} & \multirow{2}{*}{43,177} \\ \cline{4-11}
+\multicolumn{1}{|c|}{}                     &                                       &                            & 1.9.3                             & 9,688                          & 0,914                          & 0,247                          & 6,720                          & 26,989                         & 165,538                         & 210,097                         &                        &                         \\ \cline{2-13} 
+\multicolumn{1}{|c|}{}                     & \multirow{2}{*}{Optional Tasks}       & \multirow{2}{*}{20,18}     & 1.9.4                             & 11,311                         & 1,410                          & 0,049                          & 4,492                          & 25,754                         & 87,852                          & 130,869                         & \multirow{2}{*}{1,000} & \multirow{2}{*}{20,180} \\ \cline{4-11}
+\multicolumn{1}{|c|}{}                     &                                       &                            & 1.9.3                             & 11,311                         & 1,410                          & 0,049                          & 4,492                          & 25,754                         & 87,852                          & 130,869                         &                        &                         \\ \hline
+\multirow{4}{*}{Jmeter}                    & \multirow{2}{*}{Main}                 & \multirow{2}{*}{12,29}     & 2.9                               & 8,769                          & 0,929                          & 0,380                          & 8,196                          & 21,757                         & 101,673                         & 141,704                         & \multirow{2}{*}{0,981} & \multirow{2}{*}{12,055} \\ \cline{4-11}
+                                           &                                       &                            & 2.8                               & 8,900                          & 0,949                          & 0,377                          & 8,383                          & 22,057                         & 103,801                         & 144,467                         &                        &                         \\ \cline{2-13} 
+                                           & \multirow{2}{*}{HTTP}                 & \multirow{2}{*}{26,23}     & 2.9                               & 7,793                          & 0,868                          & 0,245                          & 9,199                          & 22,852                         & 53,926                          & 94,883                          & \multirow{2}{*}{1,015} & \multirow{2}{*}{26,618} \\ \cline{4-11}
+                                           &                                       &                            & 2.8                               & 7,691                          & 0,866                          & 0,246                          & 9,188                          & 22,567                         & 52,942                          & 93,501                          &                        &                         \\ \hline
+\multirow{4}{*}{Log4j}                     & \multirow{2}{*}{Configurator}         & \multirow{2}{*}{13,14}     & 1.2.17                            & 7,308                          & 1,000                          & 0,000                          & 8,077                          & 28,154                         & 56,308                          & 100,846                         & \multirow{2}{*}{1,115} & \multirow{2}{*}{14,654} \\ \cline{4-11}
+                                           &                                       &                            & 1.2.16                            & 6,500                          & 1,000                          & 0,000                          & 8,357                          & 25,714                         & 48,857                          & 90,429                          &                        &                         \\ \cline{2-13} 
+                                           & \multirow{2}{*}{Appender}             & \multirow{2}{*}{44}        & 1.2.17                            & 10,967                         & 0,600                          & 0,533                          & 6,667                          & 30,367                         & 38,800                          & 87,933                          & \multirow{2}{*}{0,976} & \multirow{2}{*}{42,957} \\ \cline{4-11}
+                                           &                                       &                            & 1.2.16                            & 10,862                         & 0,621                          & 0,517                          & 7,172                          & 30,069                         & 40,828                          & 90,069                          &                        &                         \\ \hline
+\multirow{2}{*}{Tomcat}                    & \multirow{2}{*}{Catalina}             & \multirow{2}{*}{7,42}      & 7.0.59                            & 9,121                          & 0,121                          & 0,788                          & 3,455                          & 22,152                         & 54,727                          & 90,364                          & \multirow{2}{*}{0,947} & \multirow{2}{*}{7,027}  \\ \cline{4-11}
+                                           &                                       &                            & 7.0.57                            & 9,581                          & 0,129                          & 0,774                          & 3,484                          & 23,258                         & 58,194                          & 95,419                          &                        &                         \\ \hline
+\end{tabular}
+}
+\caption{CK Métricas e o valor de w}
+\label{tab:ck_metricas}
+\end{table}
+
+
+
+
+
+
+\begin{table}[h]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|c|c|c|c|c|}
+\hline
+\multicolumn{1}{|c|}{{\bf Sistema}} & \multicolumn{1}{c|}{{\bf Componente}} & {\bf Média} & {\bf Total Erros} & {\bf Erros Encontrados(\%)} & {\bf w} & {\bf Erros Previstos (\%)} \\ \hline
+Ant                                 & Core                                  & 16,96       & 7                 & 23,33\%                     & 17,42   & 21,57\%                    \\ \hline
+Ant                                 & Core tasks                            & 42,87       & 20                & 66,67\%                     & 43,177  & 53,45\%                    \\ \hline
+Ant                                 & Optional Tasks                        & 20,18       & 3                 & 10,00\%                     & 20,18   & 24,98\%                    \\ \hline
+Jmeter                              & HTTP                                  & 12,29       & 27                & 19,29\%                     & 12,055  & 31,17\%                    \\ \hline
+Jmeter                              & Main                                  & 26,23       & 113               & 80,71\%                     & 26,618  & 68,83\%                    \\ \hline
+Log4j                               & Appender                              & 13,14       & 7                 & 87,50\%                     & 14,654  & 25,44\%                    \\ \hline
+Log4j                               & Configurator                          & 44          & 1                 & 12,50\%                     & 42,957  & 74,56\%                    \\ \hline
+Tomcat 7                            & Catalina                              & 7,42        & 6                 & -                           & 7,027   & -                          \\ \hline
+\end{tabular}
+}
+\caption{Valores Coletados x Valores Previstos}
+\label{tab:res_relativo}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.80\textwidth]{../img/graph_ant.eps}
+\caption{Resultados Sistema Ant}
+\label{fig:avalicao}
+\end{figure}
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.80\textwidth]{../img/graph_jmeter.eps}
+\caption{Resultados Sistema JMeter}
+\label{fig:avalicao}
+\end{figure}
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.80\textwidth]{../img/graph_log4j.eps}
+\caption{Resultados Sistema Log4J}
+\label{fig:avalicao}
+\end{figure}
 
 \section{Trabalhos Relacionados}
 \label{sec:trab_relacionados}

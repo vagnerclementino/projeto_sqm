@@ -1,0 +1,9 @@
+Sistema,Componente,média,Total Erros,Erros Encontrados(%),w,Erros Previstos (%)
+Ant,Core,"16,96",7,"23,33%","17,42","21,57%"
+Ant,Core tasks,"42,87",20,"66,67%","43,177","53,45%"
+Ant,Optional Tasks,"20,18",3,"10,00%","20,18","24,98%"
+Jmeter,HTTP,"12,29",27,"19,29%","12,055","31,17%"
+Jmeter,Main,"26,23",113,"80,71%","26,618","68,83%"
+Log4j,Appender,"13,14",7,"87,50%","14,654","25,44%"
+Log4j,Configurator,44,1,"12,50%","42,957","74,56%"
+Tomcat 7,Catalina,"7,42",6,-,"7,027",-
