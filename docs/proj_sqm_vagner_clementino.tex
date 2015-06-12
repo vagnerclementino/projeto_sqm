@@ -124,30 +124,81 @@ definido como $ z(t) = \frac{f(t)}{R(t)}$ \cite{lyu1996handbook}.
 É possível verificar uma relação direita entre $f(t)$, $F(t)$ e $R(t)${}. Por
 exemplo, considerando uma taxa de risco contante $z(t) = \lambda$ , resultara em
 $z(t) = \lambda$; $f(t) = \lambda{}e^{-\lambda{}t}$; $R(t) = e^{-\lambda{}t}${}.
-Neste trabalho será considerado uma taxa de risco linear com relação à versão do
-sistema analisado.
 
 \subsection{Métricas de Software}
 \label{subsec:metricas}
 
-Métricas de software vêm sendo utilizas com o objetivo de mensurar a qualidade interna do software. Na literatura diversas métricas vêm sendo propostas, contudo, não se têm um consenso qual seria o melhor conjunto de métricas a ser utilizado. Este trabalho utiliza as métricas proposta em \cite{chidamber1994metrics}{}, conhecidas como \textit{CK-Metrics}. Tais métricas $(i)$ foram definidas para softwares Orientado a Objeto; $(ii)$ são amplamente utilizadas na literatura \cite{radjenovic2013software}; $(ii)$ foi demostrado algumas são capazes de predizer módulos com erros \cite{basili1996validation}. O conjunto \textit{CK-Metrics} é composto:
+Métricas de software vêm sendo utilizas com o objetivo de mensurar a qualidade
+interna do software. Na literatura diversas métricas vêm sendo propostas,
+contudo, não se têm um consenso qual seria o melhor conjunto de métricas a ser
+utilizado. Este trabalho utiliza as métricas proposta em
+\cite{chidamber1994metrics}{}, conhecidas como \textit{CK-Metrics}. Tais
+métricas $(i)$ foram definidas para softwares Orientado a Objeto; $(ii)$ são
+amplamente utilizadas na literatura \cite{radjenovic2013software}; $(ii)$ foi
+demostrado algumas são capazes de predizer módulos com erros
+\cite{basili1996validation}. O conjunto \textit{CK-Metrics} é composto por:
 
 \begin{itemize}
 	\item \textit{Weighted Methods per Class (WMC)}:  WMC mede a complexidade de uma classe atribuindo pesos para seus métodos. Neste trabalho foi considerado que todos os métodos de uma classe possuem a mesma complexidade, desta forma o WMC representa o número de métodos em determinada classe. A suposição por trás dessa métrica é que uma classe com um número maior de funções de membro do que seus pares é mais complexa, e por consequência tende a ser mais propensa a falhas.
-	\item \textit{Depth of Inheritance Tree of a class (DIT)}:  DIT é definida como a profundidade máxima no grafo de herança de determinada classe. A suposição por trás dessa métrica é uma classe mais profunda localizada numa rede herança classe é suposto ser mais propenso a falhas porque a classe herda um grande número de definições de seus antepassados.
-	\item \textit{Number Of Children of a Class (NOC)}: Representa o número de descendentes diretos de uma classe. É possível verificar que classe com grande número de herdeiros são difíceis de modificar e normalmente requerem mais testes tendo em vista que modificações poderão afetar todo os filhos. Desta forma, quanto maior for o número de filhos de uma classe mais flexível e complexa ela será.
-	\item \textit{Coupling Between Object classes (CBO)}: Uma determinada classe $C$ está acoplado a uma outra classe $D$ caso a classe $C$ utilize funções ou membro de $D$. A suposição por trás dessa métrica é que as classes fortemente acopladas são mais propensas a falhas do que as classes fracamente acoplados.
+	\item \textit{Depth of Inheritance Tree (DIT)}:  DIT é definida como a profundidade máxima no grafo de herança de determinada classe. A suposição por trás dessa métrica é uma classe mais profunda localizada numa rede herança classe é suposto ser mais propenso a falhas porque a classe herda um grande número de definições de seus antepassados.
+	\item \textit{Number Of Children(NOC)}: Representa o número de descendentes diretos de uma classe. É possível verificar que classe com grande número de herdeiros são difíceis de modificar e normalmente requerem mais testes tendo em vista que modificações poderão afetar todo os filhos. Desta forma, quanto maior for o número de filhos de uma classe mais flexível e complexa ela será.
+	\item \textit{Coupling Between Objects(CBO)}: Uma determinada classe $C$ está acoplado a uma outra classe $D$ caso a classe $C$ utilize funções ou membro de $D$. A suposição por trás dessa métrica é que as classes fortemente acopladas são mais propensas a falhas do que as classes fracamente acoplados.
 	
 	\item \textit{Response For a Class (RFC)} :  Este é o número de métodos que podem potencialmente ser executadas no caso de uma resposta a determinada mensagem recebida por um objeto dessa classe. Neste trabalho foi considerado como RFC o número de funções diretamente invocados por funções ou operadores de uma classe. A ideia para esta métrica é que quanto maior for a resposta de uma classe, maior a complexidade da classe, e mais difícil e propenso a falhas ela estará.
 	
-	\item \textit{Lack of Cohesion on Methods (LCOM)} : Representa o número de pares de funções sem variáveis compartilhadas menos o número de pares de funções que possuemm variáveis compartilhadas. No entanto, a métrica é definida como 0 caso a diferença seja negativa. Uma classe com baixa coesão entre os seus métodos sugere um projeto inadequado, o que é susceptível a falhas.
+	\item \textit{Lack of Cohesion on Methods (LCOM)} : Representa o número de pares de funções sem variáveis compartilhadas menos o número de pares de funções que possuem variáveis compartilhadas. No entanto, a métrica é definida como 0 caso a diferença seja negativa. Uma classe com baixa coesão entre os seus métodos sugere um projeto inadequado, o que é susceptível a falhas.
 	
 \end{itemize}
 
+\subsection{Modelo Proposto}{}
+\label{subsec:modelo}
+
+A tradicional Engenharia da Confiabilidade tenta prever a falha em determinado
+sistema por meio de \textit{tempo} de execução do mesmo (vide Equações
+\ref{eq:fdp_fdc} e \ref{eq:fun_confiabilidade}). Esta linha está
+relacionado à hardware, onde falhas podem ocorrer devido à desgastes dos
+componentes. Contudo, esta visão não pode ser diretamente aplicado em software:
+caso exististe um sistema com design perfeito era executaria por tempo infinito
+sem qualquer falhas, exceto em decorrência de eventuais falhas de hardware.
+Neste sentido se faz necessário um modelo de predição que não esteja vinculado
+diretamente ao tempo de execução de um sistema. Este trabalho propõe um modelo
+para predize o número de falhas em componentes de sistema com base na taxa média de falhas
+$\lambda$ e no conjunto \textit{CK} de métricas dos sistema representado como um
+vetor de característica $X_v$, onde $v$ representa uma versão do sistema.
+
+Seja $X_{vc}=[X_1,X_2,\ldots,X_k]$ um vetor de característica de uma versão $v$ de
+um componente $c$ de um determinado sistema. Seja ainda $\lambda$ a taxa média
+de falhas do componente $c$. Podemos definir uma função de característica
+$\varphi_{vc}$ conforme Equação \ref{eq:fun_carac}{}.
+
+\begin{equation} \label{eq:fun_carac}
+    \varphi_{vc} = \sum_{j=1}^{k} \frac{1}{w_{j}} \times X_{jc}
+\end{equation}
+
+
+Na Equação \ref{eq:fun_carac} o valor de $k$ representa o tamanho do conjunto de
+métricas; $w{j}$ refere-se ao peso da métrica no cálculo da função de
+característica; $X_{jc}$ é o valor da métrica $X_j$ obtida do componente $c$.
+Neste trabalho, como foi utilizado o \textit{CK-Metrics}{} o valor de $k$ é
+igual a seis e foi definido um valor igual para cada um dos pesos $w_j$ tendo em
+vista que não se pode inicialmente mensurar qual métrica impacta mais o total de
+erros em um sistema. A partir de $\varphi_{vc}$ é possível calcular o número de
+erros em determinado módulo com base na Equação \ref{eq:fun_erros}{}.
+
+\begin{equation} \label{eq:fun_erros}
+    \omega = \lambda \times \frac{\varphi_{vc}}{\varphi_{(v-1)c}}
+\end{equation}
+
+
+A Equação \ref{eq:fun_erros} buscar prever o total de erro em determinado módulo
+baseado em dados históricos ($\lambda$) e taxa de alteração entre duas versões
+dos sistema representada por  $\frac{\varphi_{vc}}{\varphi_{(v-1)c}}{}$.
 
 \section{Avaliação do Modelo}
 \label{sec:avaliacao}
-
+Com o objetivo de avaliar o modelo proposto foi realizada a coletada de dados de
+quatro sistemas desenvolvidos em Java. Posteriormente foi realizada a coleta das
+métricas de software através da ferramenta \textit{ckjm}\cite{Jur10}.
 \subsection{Coleta e Análise dos Bugs}
 \label{subsec:analise_coleta_bugs}
 
@@ -256,21 +307,63 @@ componente A ou B. Visando ultrapassar esta dificuldade foi definido que o nome
 do componente determinará quais classes irão fazer parte do mesmo. Por exemplo,
 o sistema \textit{JMeter} possui um componente denominado \textit{}```"HTTP"```,
 portanto, as classes que tiverem a mesma string no nome serão aquelas que farão
-parte do respectivo componente. A Tabela exibe os valores das métricas avaliadas
- para cada componente considerado neste estudo.
+parte do respectivo componente. 
 
 \section{Resultados}
 \label{sec:resultados}
 
+A Tabela \ref{tab:ck_metricas} exibe os valores das métricas avaliadas para cada
+componente considerado neste estudo. Na tabela \ref{tab:res_relativb} é exibido
+o valor de $\omega$ comparado com o total de bugs encontrado nos respectivos
+módulos. É possível verificar que para alguns
+sistemas que proporcionalmente o valor de $\omega$ ficou bastante próximo da quantidade de bugs
+encontrados. Por exemplo, no caso do componente Core do sistema Ant em que o
+percentual de bugs encontrados foi de $23,33\%$ sendo que o previsto foi
+$21,57\%$. Uma mesma taxa de acerto foi percebida no módulo Catalina do sistema
+TomCat.
+
+Um outro ponto relevante está no fato que variação da função de característica
+$\varphi_{vc}$ faz com que o total de erros apurados aumente ou diminua conforme
+o caso. Pode ser observado em sistemas cujo o valor de $
+\frac{\varphi_{vc}}{\varphi_{(v-1)c}} > 1$ houve um aumento no total de erros
+com relação à média. Um exemplo é o componente HTTP do sistema JMeter. Outro
+componente que exibe tal característica é Core do sistema Ant. As Figuras
+\ref{fi:avaliacao_ant}, \ref{fi:avaliacao_jmeter} e \ref{fi:avaliacao_log4j}
+ilustram esta tendência.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.80\textwidth]{../img/graph_ant.eps}
+\caption{Resultados Sistema Ant}
+\label{fig:avalicao_ant}
+\end{figure}
 
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.80\textwidth]{../img/graph_jmeter.eps}
+\caption{Resultados Sistema JMeter}
+\label{fig:avalicao_jmeter}
+\end{figure}
+
+Com bsae nestes resultados é possível verificar que existe uma relação entre o
+número de falhas do sistema e a variação de sua qualidade interna, medida
+através de métricas. Neste trabalho não foi possível mensurar exatamente esta
+relação, contudo, se mostra como um primeiro passo na busca de outros modelos.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.80\textwidth]{../img/graph_log4j.eps}
+\caption{Resultados Sistema Log4J}
+\label{fig:avalicao_log4j}
+\end{figure}
 
 \begin{table}[h]
 \centering
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|l|c|l|l|l|l|l|l|l|l|c|c|}
 \hline
-\multicolumn{1}{|c|}{{\bf Sistema}}        & \multicolumn{1}{c|}{{\bf Componente}} & {\bf Taxa Média de Falhas} & \multicolumn{1}{c|}{{\bf Versão}} & \multicolumn{1}{c|}{{\bf WMC}} & \multicolumn{1}{c|}{{\bf DIT}} & \multicolumn{1}{c|}{{\bf NOC}} & \multicolumn{1}{c|}{{\bf CBO}} & \multicolumn{1}{c|}{{\bf RFC}} & \multicolumn{1}{c|}{{\bf LCOM}} & \multicolumn{1}{c|}{{\bf X\_v}} & {\bf X\_v / X\_v-1}    & {\bf w}                 \\ \hline
+\multicolumn{1}{|c|}{{\bf Sistema}}        & \multicolumn{1}{c|}{{\bf Componente}} & {\bf Taxa Média de Falhas} & \multicolumn{1}{c|}{{\bf Versão}} & \multicolumn{1}{c|}{{\bf WMC}} & \multicolumn{1}{c|}{{\bf DIT}} & \multicolumn{1}{c|}{{\bf NOC}} & \multicolumn{1}{c|}{{\bf CBO}} & \multicolumn{1}{c|}{{\bf RFC}} & \multicolumn{1}{c|}{{\bf LCOM}} & \multicolumn{1}{c|}{{\bf $\varphi_{vc}$}} & {\bf $\frac{\varphi_{vc}}{\varphi_{(v-1)c}}$}    & {\bf $\omega$}                 \\ \hline
 \multicolumn{1}{|c|}{\multirow{6}{*}{Ant}} & \multirow{2}{*}{Core}                 & \multirow{2}{*}{16,96}     & 1.9.4                             & 8,705                          & 0,521                          & 0,421                          & 7,687                          & 26,515                         & 63,983                          & 107,831                         & \multirow{2}{*}{1,027} & \multirow{2}{*}{17,420} \\ \cline{4-11}
 \multicolumn{1}{|c|}{}                     &                                       &                            & 1.9.3                             & 8,695                          & 0,503                          & 0,435                          & 7,691                          & 26,423                         & 61,240                          & 104,985                         &                        &                         \\ \cline{2-13} 
 \multicolumn{1}{|c|}{}                     & \multirow{2}{*}{Core tasks}           & \multirow{2}{*}{42,87}     & 1.9.4                             & 9,710                          & 0,914                          & 0,247                          & 6,720                          & 27,043                         & 166,968                         & 211,602                         & \multirow{2}{*}{1,007} & \multirow{2}{*}{43,177} \\ \cline{4-11}
@@ -295,15 +388,12 @@ parte do respectivo componente. A Tabela exibe os valores das métricas avaliada
 
 
 
-
-
-
 \begin{table}[h]
 \centering
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|l|c|c|c|c|c|}
 \hline
-\multicolumn{1}{|c|}{{\bf Sistema}} & \multicolumn{1}{c|}{{\bf Componente}} & {\bf Média} & {\bf Total Erros} & {\bf Erros Encontrados(\%)} & {\bf w} & {\bf Erros Previstos (\%)} \\ \hline
+\multicolumn{1}{|c|}{{\bf Sistema}} & \multicolumn{1}{c|}{{\bf Componente}} & {\bf Média} & {\bf Total Erros} & {\bf Erros Encontrados(\%)} & {\bf $\omega$} & {\bf Erros Previstos (\%)} \\ \hline
 Ant                                 & Core                                  & 16,96       & 7                 & 23,33\%                     & 17,42   & 21,57\%                    \\ \hline
 Ant                                 & Core tasks                            & 42,87       & 20                & 66,67\%                     & 43,177  & 53,45\%                    \\ \hline
 Ant                                 & Optional Tasks                        & 20,18       & 3                 & 10,00\%                     & 20,18   & 24,98\%                    \\ \hline
@@ -318,32 +408,24 @@ Tomcat 7                            & Catalina                              & 7,
 \label{tab:res_relativo}
 \end{table}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=.80\textwidth]{../img/graph_ant.eps}
-\caption{Resultados Sistema Ant}
-\label{fig:avalicao}
-\end{figure}
-
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=.80\textwidth]{../img/graph_jmeter.eps}
-\caption{Resultados Sistema JMeter}
-\label{fig:avalicao}
-\end{figure}
-
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=.80\textwidth]{../img/graph_log4j.eps}
-\caption{Resultados Sistema Log4J}
-\label{fig:avalicao}
-\end{figure}
-
 \section{Trabalhos Relacionados}
 \label{sec:trab_relacionados}
 
+Em \cite{frankl1988applicable,horgan1994achieving} é apresentado um trabalho
+exibindo que uma completa inspeção no código de um software leva a um aumento da
+confiabilidade e reduz a taxa de erros. No trabalho de \cite{chen1995effect} foi
+mostrado a correlação entre a análise integral do código com a sua respectiva
+confiabilidade. Em \cite{briand1999using} é mostrado que os resultados obtidos
+em teste de software não são capazes de mostrar uma relação direta entre análise
+do código e confiabilidade do sistema.
+
+
+No trabalho de \cite{chidamber1994metrics} é proposto um conjunto de métricas
+que é largamente utilizado. Estudo semelhante foi realizado por
+\cite{abreu1994object} são propostas métricas para avaliar a qualidade interna
+do software. Em \cite{basili1996validation} as métricas proposta por
+\cite{chidamber1994metrics} foram utilizadas para buscar classes mais propensas
+a falhas.
 
 \section{Limitações e Ameaças a Validade}
 \label{sec:limitacoes}
@@ -360,6 +442,18 @@ está é uma ameaça comum a validade de qualquer trabalho nesta área.
 
 \section{Conclusão}
 \label{sec:conclusao}
+Neste trabalho foi proposto um modelo para prever o número de falhas em módulos
+de um sistema utilizando dados históricos e métricas de software. Após coletas
+de sistemas escritos em Java e desenvolvidos pela Apache Foundation foi medido o
+número de bugs para cada módulo do sistema. Houve também a medição dos módulos
+utilizando as \textit{CK Metrics}. Foi possível verificar que existe uma relação
+entre o número de falhas de um módulo com relação às mudanças de suas métricas.
+A base para determinar o número de falhas foi os dados históricos de falhas do
+próprio módulo. Este trabalho vêm corroborar com diversos outros que mostraram a
+importancia do uso de métricas de software na análise da qualidade interna do
+produto de software. Contudo, este trabalho chama a atenção para que dados
+históricos sobre bugs sejam considerados nos modelos propostos. Este tipo de
+informação agregará valor para estes trabalhos.
 
 \bibliographystyle{sbc}
 \bibliography{./bib/proposta-ref}
